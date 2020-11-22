@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django import template
 from plotly.offline import plot
 import plotly.graph_objects as go
+form rmsdash.models import TbServer,TbCpuRamLoad
 
 @login_required(login_url="/login/")
 def index(request):
