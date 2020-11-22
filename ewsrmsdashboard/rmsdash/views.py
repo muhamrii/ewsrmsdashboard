@@ -38,7 +38,10 @@ def index(request):
 
 @login_required(login_url="/login/")
 def realtime(request):
-    context={}
+    listdataserverupdate = TbServer.objects.raw('''SELECT * from tb_server, tb_cpu_ram_load where tb_server.servername = tb_cpu_ram_load.servername and timeid=(select timeid from tb_cpu_ram_load order by timeid desc limit 1)''')
+    context={
+        'listdataserverupdate' = listdataserverupdate,
+    }
     html_template = loader.get_template( 'realtime.html' )
     return HttpResponse(html_template.render(context, request))
 
