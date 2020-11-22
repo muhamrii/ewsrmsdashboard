@@ -48,6 +48,15 @@ def realtime(request):
 
 
 @login_required(login_url="/login/")
+def realtimedetail(request, servername):
+    context={
+        'servername' : servername
+    }
+    html_template = loader.get_template( 'realtime-detail.html' )
+    return HttpResponse(html_template.render(context, request))
+
+
+@login_required(login_url="/login/")
 def pages(request):
     context = {}
     # All resource paths end in .html.
