@@ -1,0 +1,33 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+{% load static %}
+{% block content %}
+    {% load plotly_dash %}
+
+    <main class="content">
+
+        {% include 'includes/navigation.html' %}
+
+        <div class="preloader bg-soft flex-column justify-content-center align-items-center">
+            <img class="loader-element animate__animated animate__jackInTheBox" src="/static/assets/img/brand/light.svg" height="60" alt="Volt logo">
+        </div>
+
+        <div class="{% plotly_class name='SimpleExample' %} card" style="height: 100%; width: 100%">
+            {% plotly_app name='SimpleExample' ratio=0.45 %}
+        </div>
+	<br>
+	{{ plot1 | safe }}
+
+        {% include 'includes/footer.html' %}
+
+    </main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
+
