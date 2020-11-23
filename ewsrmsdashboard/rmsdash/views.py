@@ -72,7 +72,7 @@ def realtimedetail(request, servername):
         db_connection = sql.connect(host='localhost', database='db_ewsrmsdash', user='root', password='Last_12321', auth_plugin='mysql_native_password')
         df = pd.read_sql("select timeid, servername, filesystem, size, used, avail, percentageusage, mounted from tb_disk_capacity where timeid > now() - INTERVAL 24 HOUR;", con=db_connection)
         df = df.loc[df['servername'] == filterserver]
-        fig = px.line(df, x="timeid", y="percentageusage", color="mounted", title="CPU LOAD")
+        fig = px.line(df, x="timeid", y="percentageusage", color="mounted", title="Disk Usage")
         plot_div = plot(fig, output_type='div', include_plotlyjs=False)
         return plot_div
 
@@ -80,7 +80,7 @@ def realtimedetail(request, servername):
         db_connection = sql.connect(host='localhost', database='db_ewsrmsdash', user='root', password='Last_12321', auth_plugin='mysql_native_password')
         df = pd.read_sql("select timeid, servername, filesystem, inodestotal, used, inodesfree, percentageiusage, mounted from tb_inodes_usage where timeid > now() - INTERVAL 24 HOUR;", con=db_connection)
         df = df.loc[df['servername'] == filterserver]
-        fig = px.line(df, x="timeid", y="percentageiusage", color="mounted", title="CPU LOAD")
+        fig = px.line(df, x="timeid", y="percentageiusage", color="mounted", title="Disk Inodes Usage")
         plot_div = plot(fig, output_type='div', include_plotlyjs=False)
         return plot_div
 

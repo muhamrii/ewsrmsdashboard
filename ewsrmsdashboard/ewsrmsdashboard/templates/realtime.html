@@ -39,7 +39,7 @@
                     <th class="border-0">Port SSH</th>
                     <th class="border-0">Connection Status</th>
                     <th class="border-0">Last Update</th>
-                    <th class="border-0">Open Monitoring</th>
+                    <th class="border-0">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,20 +51,25 @@
                             <td class="font-weight-bold">{{ dataserverupdate.username }}</td>
                             <td class="font-weight-bold">{{ dataserverupdate.port }}</td>
                             {% if dataserverupdate.sshstatus == "OK" %}
-                                <td class="text-success">
+                                <td class="badge bg-success">
                                     <span class="fas fa-angle-up"></span>                                   
                                     <span class="font-weight-bold">OK</span>                                 
                                 </td>  
                             {% else %}
-                                <td class="text-danger">
+                                <td class="badge bg-danger">
                                     <span class="fas fa-angle-down"></span>                                   
                                     <span class="font-weight-bold">NOK</span>                                 
                                 </td>
                             {% endif %}
                             <td class="font-weight-bold">{{ dataserverupdate.timeid }}</td>
-                            <td><a href="/realtime-detail/{{ dataserverupdate.servername }}/">
-                                <button class="btn btn-sm btn-primary">Open Monitoring</button>
-                            </a></td>
+                            <td>
+                                <a href="/realtime-detail/{{ dataserverupdate.servername }}/">
+                                    <button class="btn btn-sm btn-info">Realtime Monitoring</button>
+                                </a>
+                                <a href="/realtime-detail/{{ dataserverupdate.servername }}/">
+                                    <button class="btn btn-sm btn-success">Historical Data</button>
+                                </a>
+                            </td>
                         </tr>
                     {% endfor %}
                     <!-- End of Item -->
