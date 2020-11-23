@@ -62,7 +62,7 @@ def realtimedetail(request, servername):
 
     context={
         'servername' : servername,
-        'plotram' : plotram()
+        'plotram' : plotram(servername)
     }
     html_template = loader.get_template( 'realtime-detail.html' )
     return HttpResponse(html_template.render(context, request))
