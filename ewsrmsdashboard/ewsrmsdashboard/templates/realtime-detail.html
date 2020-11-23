@@ -14,102 +14,133 @@
 
         <h1>{{ servername }}</h1>
         <div class="row">
-            <div class="col-sm card" style="width:600;height:500">
-                {{ plotcpu | safe }}
+            <div class="col-sm">
+                <div class="card border-light shadow-sm">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            CPU Usage Graph
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {{ plotcpu | safe }}
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-sm card" style="width:600;height:500">
-                {{ plotram | safe }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 col-sm">
+            <div class="col-sm">
                 <div class="card border-light shadow-sm">
                     <div class="card-header" id="headingOne">
                         <h5 class="mb-0">
-                            Disk Capacity Usage
+                            RAM Usage Graph
                         </h5>
                     </div>
                     <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-centered table-nowrap mb-0 rounded">
-                        <thead class="thead-light">
-                            <tr>
-                            <th class="border-0">filesystem</th>
-                            <th class="border-0">size</th>
-                            <th class="border-0">used</th>
-                            <th class="border-0">avail</th>
-                            <th class="border-0">(%)</th>
-                            <th class="border-0">mounted</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Item -->
-                            {% for diskcapacity in listdiskcapacity %}
-                                <tr>
-                                    <td class="font-weight-bold">{{ diskcapacity.filesystem }}</td>
-                                    <td class="font-weight-bold">{{ diskcapacity.size }}</td>
-                                    <td class="font-weight-bold">{{ diskcapacity.used }}</td>
-                                    <td class="font-weight-bold">{{ diskcapacity.avail }}</td>
-                                    <td class="font-weight-bold">{{ diskcapacity.percentageusage }}</td>
-                                    <td class="font-weight-bold">{{ diskcapacity.mounted }}</td>
-                                </tr>
-                            {% endfor %}
-                            <!-- End of Item -->
-                        </tbody>
-                        </table>
-                    </div>
+                        {{ plotram | safe }}
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-sm card" style="width:600;height:500">
-                {{ plotdisk | safe }}
-            </div>
         </div>
+
         <div class="row">
-            <div class="col-6 col-sm">
+            <div class="col-sm">
                 <div class="card border-light shadow-sm">
                     <div class="card-header" id="headingOne">
                         <h5 class="mb-0">
-                            Inodes Usage
+                            Disk Capacity Usage Graph
                         </h5>
                     </div>
                     <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-centered table-nowrap mb-0 rounded">
-                        <thead class="thead-light">
-                            <tr>
-                            <th class="border-0">filesystem</th>
-                            <th class="border-0">total</th>
-                            <th class="border-0">used</th>
-                            <th class="border-0">free</th>
-                            <th class="border-0">(%)</th>
-                            <th class="border-0">mounted</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Item -->
-                            {% for inodesusage in listinodesusage %}
-                                <tr>
-                                    <td class="font-weight-bold">{{ inodesusage.filesystem }}</td>
-                                    <td class="font-weight-bold">{{ inodesusage.inodestotal }}</td>
-                                    <td class="font-weight-bold">{{ inodesusage.used }}</td>
-                                    <td class="font-weight-bold">{{ inodesusage.inodesfree }}</td>
-                                    <td class="font-weight-bold">{{ inodesusage.percentageiusage }}</td>
-                                    <td class="font-weight-bold">{{ inodesusage.mounted }}</td>
-                                </tr>
-                            {% endfor %}
-                            <!-- End of Item -->
-                        </tbody>
-                        </table>
-                    </div>
+                        <div class="col-6 col-sm">
+                            <div class="card border-light shadow-sm">
+                                <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-centered table-nowrap mb-0 rounded">
+                                    <thead class="thead-light">
+                                        <tr>
+                                        <th class="border-0">filesystem</th>
+                                        <th class="border-0">size</th>
+                                        <th class="border-0">used</th>
+                                        <th class="border-0">avail</th>
+                                        <th class="border-0">(%)</th>
+                                        <th class="border-0">mounted</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Item -->
+                                        {% for diskcapacity in listdiskcapacity %}
+                                            <tr>
+                                                <td class="font-weight-bold">{{ diskcapacity.filesystem }}</td>
+                                                <td class="font-weight-bold">{{ diskcapacity.size }}</td>
+                                                <td class="font-weight-bold">{{ diskcapacity.used }}</td>
+                                                <td class="font-weight-bold">{{ diskcapacity.avail }}</td>
+                                                <td class="font-weight-bold">{{ diskcapacity.percentageusage }}</td>
+                                                <td class="font-weight-bold">{{ diskcapacity.mounted }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        <!-- End of Item -->
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm card" style="width:600;height:500">
+                            {{ plotdisk | safe }}
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-sm card" style="width:600;height:500">
-                {{ plotinodes | safe }}
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                <div class="card border-light shadow-sm">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            Inodes Usage Graph
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-6 col-sm">
+                            <div class="card border-light shadow-sm">
+                                <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-centered table-nowrap mb-0 rounded">
+                                    <thead class="thead-light">
+                                        <tr>
+                                        <th class="border-0">filesystem</th>
+                                        <th class="border-0">total</th>
+                                        <th class="border-0">used</th>
+                                        <th class="border-0">free</th>
+                                        <th class="border-0">(%)</th>
+                                        <th class="border-0">mounted</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Item -->
+                                        {% for inodesusage in listinodesusage %}
+                                            <tr>
+                                                <td class="font-weight-bold">{{ inodesusage.filesystem }}</td>
+                                                <td class="font-weight-bold">{{ inodesusage.inodestotal }}</td>
+                                                <td class="font-weight-bold">{{ inodesusage.used }}</td>
+                                                <td class="font-weight-bold">{{ inodesusage.inodesfree }}</td>
+                                                <td class="font-weight-bold">{{ inodesusage.percentageiusage }}</td>
+                                                <td class="font-weight-bold">{{ inodesusage.mounted }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        <!-- End of Item -->
+                                    </tbody>
+                                    </table>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm card" style="width:600;height:500">
+                            {{ plotinodes | safe }}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
