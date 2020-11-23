@@ -27,6 +27,11 @@
         <div class="row">
             <div class="col-6 col-sm">
                 <div class="card border-light shadow-sm">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            Disk Capacity Usage
+                        </h2>
+                    </div>
                     <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-centered table-nowrap mb-0 rounded">
@@ -66,13 +71,18 @@
         <div class="row">
             <div class="col-6 col-sm">
                 <div class="card border-light shadow-sm">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            Inodes Usage
+                        </h2>
+                    </div>
                     <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-centered table-nowrap mb-0 rounded">
                         <thead class="thead-light">
                             <tr>
                             <th class="border-0">filesystem</th>
-                            <th class="border-0">inodestotal</th>
+                            <th class="border-0">total</th>
                             <th class="border-0">used</th>
                             <th class="border-0">free</th>
                             <th class="border-0">(%)</th>
@@ -84,10 +94,10 @@
                             {% for inodesusage in listinodesusage %}
                                 <tr>
                                     <td class="font-weight-bold">{{ inodesusage.filesystem }}</td>
-                                    <td class="font-weight-bold">{{ inodesusage.size }}</td>
+                                    <td class="font-weight-bold">{{ inodesusage.inodestotal }}</td>
                                     <td class="font-weight-bold">{{ inodesusage.used }}</td>
-                                    <td class="font-weight-bold">{{ inodesusage.avail }}</td>
-                                    <td class="font-weight-bold">{{ inodesusage.percentageusage }}</td>
+                                    <td class="font-weight-bold">{{ inodesusage.inodesfree }}</td>
+                                    <td class="font-weight-bold">{{ inodesusage.percentageiusage }}</td>
                                     <td class="font-weight-bold">{{ inodesusage.mounted }}</td>
                                 </tr>
                             {% endfor %}
