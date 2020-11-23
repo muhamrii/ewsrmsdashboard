@@ -5,6 +5,9 @@ from django.http import HttpResponse
 from django import template
 from plotly.offline import plot
 import plotly.graph_objects as go
+import plotly.express as px
+import pandas as pd
+import mysql.connector as sql
 from rmsdash.models import TbServer,TbCpuRamLoad
 
 @login_required(login_url="/login/")
@@ -49,8 +52,17 @@ def realtime(request):
 
 @login_required(login_url="/login/")
 def realtimedetail(request, servername):
+    def plotram(servername):
+        db_connection = sql.connect(host='localhost', database='db_ewsrmsdash', user='root', password='Last_12321', auth_plugin='mysql_native_password')
+        df = pd.read_sql("select timeid, servername, memload,cpuload, sshstatus from tb_cpu_ram_load where timeid > now() - INTERVAL 24 HOUR and servername = '{servername}';", con=db_connection)
+
+        fig = px.line(df, x="timeid", y="memload", color="servername", hover_name="servername")
+        plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+        return plot_div
+
     context={
-        'servername' : servername
+        'servername' : servername,
+        'plotram' : plotram()
     }
     html_template = loader.get_template( 'realtime-detail.html' )
     return HttpResponse(html_template.render(context, request))
