@@ -54,7 +54,7 @@ def realtime(request):
 def realtimedetail(request, servername):
     def plotram(filterserver):
         db_connection = sql.connect(host='localhost', database='db_ewsrmsdash', user='root', password='Last_12321', auth_plugin='mysql_native_password')
-        df = pd.read_sql("select timeid, servername, memload,cpuload, sshstatus from tb_cpu_ram_load where timeid > now() - INTERVAL 24 HOUR; and servername='{filterserver}'", con=db_connection)
+        df = pd.read_sql("select timeid, servername, memload,cpuload, sshstatus from tb_cpu_ram_load where timeid > now() - INTERVAL 24 HOUR and servername='{filterserver}';", con=db_connection)
 
         fig = px.line(df, x="timeid", y="memload", color="servername", title=filterserver)
         plot_div = plot(fig, output_type='div', include_plotlyjs=False)
