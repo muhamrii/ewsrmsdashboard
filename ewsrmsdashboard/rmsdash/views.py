@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 import mysql.connector as sql
-from rmsdash.models import TbServer,TbCpuRamLoad
+from rmsdash.models import TbServer,TbCpuRamLoad,TbDiskCapacity,TbInodesUsage
 
 @login_required(login_url="/login/")
 def index(request):
@@ -84,12 +84,20 @@ def realtimedetail(request, servername):
         plot_div = plot(fig, output_type='div', include_plotlyjs=False)
         return plot_div
 
+    lastupdate = TbDiskCapacity.objects.order_by('-timeid').values('timeid').distinct()[:1]
+    get_servername =  servername
+    listdiskcapacity = TbDiskCapacity.objects.all().filter(timeid__exact=lastupdate).filter(servername__exact=get_servername)
+    listinodesusage = TbInodesUsage.objects.all().filter(timeid__exact=lastupdate).filter(servername__exact=get_servername)
+    listdataserverupdate = TbServer.objects.raw('''SELECT * from tb_server, tb_cpu_ram_load where tb_server.servername = tb_cpu_ram_load.servername and timeid=(select timeid from tb_cpu_ram_load order by timeid desc limit 1)''')
     context={
         'servername' : servername,
         'plotram' : plotram(servername),
         'plotcpu' : plotcpu(servername),
         'plotdisk' : plotdisk(servername),
         'plotinodes' : plotinodes(servername),
+        'listdiskcapacity' : listdiskcapacity,
+        'listinodesusage' : listinodesusage,
+        'listdataserverupdate' : listdataserverupdate,
     }
     html_template = loader.get_template( 'realtime-detail.html' )
     return HttpResponse(html_template.render(context, request))
