@@ -13,8 +13,18 @@
         {% include 'includes/navigation.html' %}
 
         <h1>{{ servername }}</h1>
-        <br>
-        {{ plotram | safe }}
+
+        <div class="container">
+            <div class="row">
+              <div class="col-sm card">
+                {{ plotram | safe }}
+              </div>
+              <div class="col-sm card">
+                {{ plotcpu | safe }}
+              </div>
+            </div>
+        </div>
+        
 
         {% include 'includes/footer.html' %}
 
