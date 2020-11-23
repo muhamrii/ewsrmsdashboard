@@ -13,15 +13,19 @@
         {% include 'includes/navigation.html' %}
 
         <h1>{{ servername }}</h1>
-        
-        <div class="row card" style="width:600;height:500">
-            {{ plotcpu | safe }}
+        <div class="row">
+            <div class="col-sm card" style="width:600;height:500">
+                {{ plotcpu | safe }}
+            </div>
         </div>
-        <div class="row card" style="width:600;height:500">
-            {{ plotram | safe }}
+
+        <div class="row">
+            <div class="col-sm card" style="width:600;height:500">
+                {{ plotram | safe }}
+            </div>
         </div>
         <div class="row">
-            <div class="col-sm">
+            <div class="col-6 col-sm">
                 <div class="card border-light shadow-sm">
                     <div class="card-body">
                     <div class="table-responsive">
@@ -55,12 +59,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm card" style="width:600;height:500">
+            <div class="col-6 col-sm card" style="width:600;height:500">
                 {{ plotdisk | safe }}
             </div>
         </div>
         <div class="row">
-            <div class="col-sm">
+            <div class="col-6 col-sm">
                 <div class="card border-light shadow-sm">
                     <div class="card-body">
                     <div class="table-responsive">
@@ -94,11 +98,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm card" style="width:600;height:500">
+            <div class="col-6 col-sm card" style="width:600;height:500">
                 {{ plotinodes | safe }}
             </div>
         </div>
-        
+
         {% include 'includes/footer.html' %}
 
     </main>
