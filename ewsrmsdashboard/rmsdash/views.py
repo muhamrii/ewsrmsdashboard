@@ -52,17 +52,18 @@ def realtime(request):
 
 @login_required(login_url="/login/")
 def realtimedetail(request, servername):
-    def plotram():
+    def plotram(servername):
+        selectedserver = servername
         db_connection = sql.connect(host='localhost', database='db_ewsrmsdash', user='root', password='Last_12321', auth_plugin='mysql_native_password')
-        df = pd.read_sql("select timeid, servername, memload,cpuload, sshstatus from tb_cpu_ram_load where timeid > now() - INTERVAL 24 HOUR and servername = '{servername}';", con=db_connection)
+        df = pd.read_sql("select timeid, servername, memload,cpuload, sshstatus from tb_cpu_ram_load where timeid > now() - INTERVAL 24 HOUR and servername = '{selectedserver}';", con=db_connection)
 
-        fig = px.line(df, x="timeid", y="memload", color="servername", hover_name="servername")
+        fig = px.line(df, x="timeid", y="memload", color="servername")
         plot_div = plot(fig, output_type='div', include_plotlyjs=False)
         return plot_div
 
     context={
         'servername' : servername,
-        'plotram' : plotram()
+        'plotram' : plotram(servername)
     }
     html_template = loader.get_template( 'realtime-detail.html' )
     return HttpResponse(html_template.render(context, request))
