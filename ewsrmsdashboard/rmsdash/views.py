@@ -88,7 +88,7 @@ def realtimedetail(request, servername):
     get_servername =  servername
     listdiskcapacity = TbDiskCapacity.objects.all().filter(timeid__exact=lastupdate).filter(servername__exact=get_servername)
     listinodesusage = TbInodesUsage.objects.all().filter(timeid__exact=lastupdate).filter(servername__exact=get_servername)
-    listdataserverupdate = TbServer.objects.raw('''SELECT * from tb_server, tb_cpu_ram_load where tb_server.servername = tb_cpu_ram_load.servername and timeid=(select timeid from tb_cpu_ram_load order by timeid desc limit 1)''')
+    listdataserverupdate = TbCpuRamLoad.objects.all().filter(servername__exact=get_servername).order_by('-timeid')[:1]
     context={
         'servername' : servername,
         'plotram' : plotram(servername),

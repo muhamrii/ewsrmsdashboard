@@ -24,43 +24,41 @@
                     </div>
                     <div class="card-body">
                         {% for dataserverupdate in listdataserverupdate %}
-                            {% if dataserverupdate.servername == "{{ servername }}" %}
-                                <div class="table-responsive">
-                                    <table class="table table-nowrap mb-0 rounded">
-                                    <tbody>
-                                        <!-- Item -->
-                                        <tr class="border-0">
-                                            <td class="font-weight-bold">Server Name</td>
-                                            <td class="font-weight-bold">{{ dataserverupdate.servername }}</td>
-                                        </tr>
-                                        <tr class="border-0">
-                                            <td class="font-weight-bold">IP Address</td>
-                                            <td class="font-weight-bold">{{ dataserverupdate.ipaddress }}</td>
-                                        </tr>
-                                        <tr class="border-0">
-                                            {% if dataserverupdate.sshstatus == "OK" %}
-                                                <td class="font-weight-bold">Connection Status</td>
-                                                <td class="text-success">
-                                                    <span class="fas fa-angle-up"></span>                                   
-                                                    <span class="font-weight-bold">OK</span>                                 
-                                                </td> 
-                                            {% else %}
-                                                <td class="font-weight-bold">Connection Status</td>
-                                                <td class="text-danger">
-                                                    <span class="fas fa-angle-down"></span>                                   
-                                                    <span class="font-weight-bold">NOK</span>                                 
-                                                </td>
-                                            {% endif %}
-                                        </tr>
-                                        <tr class="border-0">
-                                            <td class="font-weight-bold">Last Update</td>
-                                            <td class="font-weight-bold">{{ dataserverupdate.timeid }}</td>
-                                        </tr>
-                                        <!-- End of Item -->
-                                    </tbody>
-                                    </table>
-                                </div>
-                            {% endif %}
+                            <div class="table-responsive">
+                                <table class="table table-nowrap mb-0 rounded">
+                                <tbody>
+                                    <!-- Item -->
+                                    <tr class="border-0">
+                                        <td class="font-weight-bold">Server Name</td>
+                                        <td class="font-weight-bold">{{ dataserverupdate.servername }}</td>
+                                    </tr>
+                                    <tr class="border-0">
+                                        <td class="font-weight-bold">IP Address</td>
+                                        <td class="font-weight-bold">{{ dataserverupdate.ipaddress }}</td>
+                                    </tr>
+                                    <tr class="border-0">
+                                        {% if dataserverupdate.sshstatus == "OK" %}
+                                            <td class="font-weight-bold">Connection Status</td>
+                                            <td class="text-success">
+                                                <span class="fas fa-angle-up"></span>                                   
+                                                <span class="font-weight-bold">OK</span>                                 
+                                            </td> 
+                                        {% else %}
+                                            <td class="font-weight-bold">Connection Status</td>
+                                            <td class="text-danger">
+                                                <span class="fas fa-angle-down"></span>                                   
+                                                <span class="font-weight-bold">NOK</span>                                 
+                                            </td>
+                                        {% endif %}
+                                    </tr>
+                                    <tr class="border-0">
+                                        <td class="font-weight-bold">Last Update</td>
+                                        <td class="font-weight-bold">{{ dataserverupdate.timeid }}</td>
+                                    </tr>
+                                    <!-- End of Item -->
+                                </tbody>
+                                </table>
+                            </div>
                         {% endfor %}
                     </div>
                 </div>
