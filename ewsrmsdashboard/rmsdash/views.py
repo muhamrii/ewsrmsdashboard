@@ -105,7 +105,7 @@ def realtimedetail(request, servername):
 
 
 @login_required(login_url="/login/")
-def requesthistory(request):
+def requesthistory(request, servername):
     get_servername =  servername
     listdataserverupdate = TbCpuRamLoad.objects.all().filter(servername__exact=get_servername).order_by('-timeid')[:1]
     context={
