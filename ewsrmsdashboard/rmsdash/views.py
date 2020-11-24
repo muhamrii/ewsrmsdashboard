@@ -84,8 +84,8 @@ def realtimedetail(request, servername):
         plot_div = plot(fig, output_type='div', include_plotlyjs=False)
         return plot_div
 
-    lastupdate = TbDiskCapacity.objects.order_by('-timeid').values('timeid').distinct()[:1]
     get_servername =  servername
+    lastupdate = TbDiskCapacity.objects.order_by('-timeid').values('timeid').filter(servername__exact=get_servername).distinct()[:1]
     listdiskcapacity = TbDiskCapacity.objects.all().filter(timeid__exact=lastupdate).filter(servername__exact=get_servername)
     listinodesusage = TbInodesUsage.objects.all().filter(timeid__exact=lastupdate).filter(servername__exact=get_servername)
     listdataserverupdate = TbCpuRamLoad.objects.all().filter(servername__exact=get_servername).order_by('-timeid')[:1]
