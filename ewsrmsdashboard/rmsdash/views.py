@@ -105,6 +105,17 @@ def realtimedetail(request, servername):
 
 
 @login_required(login_url="/login/")
+def requesthistory(request):
+    get_servername =  servername
+    listdataserverupdate = TbCpuRamLoad.objects.all().filter(servername__exact=get_servername).order_by('-timeid')[:1]
+    context={
+        'servername' : servername,
+        'listdataserverupdate' : listdataserverupdate,
+    }
+    html_template = loader.get_template( 'form-historical.html' )
+    return HttpResponse(html_template.render(context, request))
+
+@login_required(login_url="/login/")
 def pages(request):
     context = {}
     # All resource paths end in .html.

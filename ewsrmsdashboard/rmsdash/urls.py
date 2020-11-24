@@ -7,5 +7,6 @@ urlpatterns = [
     path('', views.index, name='home'),
     path('realtimedashboard', views.realtime, name='realtime'),
     path('realtime-detail/<str:servername>/', views.realtimedetail, name='realtimedetail')
+    path('request-history/<str:servername>/', views.requesthistory, name='requesthistory')
 
 ]
