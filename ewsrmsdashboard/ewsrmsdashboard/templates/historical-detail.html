@@ -1,0 +1,33 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+{% load static %}
+{% block content %}
+    {% load plotly_dash %}
+
+    <main class="content">
+
+        {% include 'includes/navigation.html' %}
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-secondary breadcrumb-transparent">
+                <li class="breadcrumb-item"><a href="{% url 'realtime' %}">Dashboard</a></li>
+                <li class="breadcrumb-item">Realtime</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ servername }}</li>
+            </ol>
+        </nav>
+
+        <h1>{{ startdate }}</h1>
+        <h1>{{ enddate }}</h1>
+
+        {% include 'includes/footer.html' %}
+
+    </main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

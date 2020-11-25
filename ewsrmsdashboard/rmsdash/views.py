@@ -9,6 +9,7 @@ import plotly.express as px
 import pandas as pd
 import mysql.connector as sql
 from rmsdash.models import TbServer,TbCpuRamLoad,TbDiskCapacity,TbInodesUsage
+from rmsdash.form import RequestHistoricalForm
 
 @login_required(login_url="/login/")
 def index(request):
@@ -106,7 +107,21 @@ def realtimedetail(request, servername):
 
 @login_required(login_url="/login/")
 def requesthistory(request, servername):
+    form = RequestHistoricalForm(request.POST or None)
     get_servername =  servername
+    if request.method == "POST":
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            startdate = form.cleaned_data.get("startdate")
+            enddate = form.cleaned_data.get("enddate")
+            context1={
+                'startdate' : startdate,
+                'enddate' : enddate,
+                'servername' : get_servername
+            }
+            html_template1 = loader.get_template( 'historical-detail.html' )
+            return HttpResponse(html_template1.render(context1, request))
+
     listdataserverupdate = TbCpuRamLoad.objects.all().filter(servername__exact=get_servername).order_by('-timeid')[:1]
     context={
         'servername' : servername,
