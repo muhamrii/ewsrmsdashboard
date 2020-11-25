@@ -135,7 +135,7 @@ def requesthistory(request, servername):
 
             def plotdisk(filterserver):
                 db_connection = sql.connect(host='localhost', database='db_ewsrmsdash', user='root', password='Last_12321', auth_plugin='mysql_native_password')
-                df = pd.read_sql("select timeid, servername, filesystem, size, used, avail, percentageusage, mounted from tb_disk_capacity where timeid > now() - INTERVAL 24 HOUR;", con=db_connection)
+                df = pd.read_sql("select timeid, servername, filesystem, size, used, avail, percentageusage, mounted from tb_disk_capacity;", con=db_connection)
                 df = df.loc[df['servername'] == filterserver]
                 df = df.loc[((df['timeid'] > startcompare) & (df['timeid'] <= endcompare))]
                 fig = px.line(df, x="timeid", y="percentageusage", color="mounted", title="Disk Usage", hover_data=["size", "used", "avail"])
@@ -144,7 +144,7 @@ def requesthistory(request, servername):
             
             def plotinodes(filterserver):
                 db_connection = sql.connect(host='localhost', database='db_ewsrmsdash', user='root', password='Last_12321', auth_plugin='mysql_native_password')
-                df = pd.read_sql("select timeid, servername, filesystem, inodestotal, used, inodesfree, percentageiusage, mounted from tb_inodes_usage where timeid > now() - INTERVAL 24 HOUR;", con=db_connection)
+                df = pd.read_sql("select timeid, servername, filesystem, inodestotal, used, inodesfree, percentageiusage, mounted from tb_inodes_usage;", con=db_connection)
                 df = df.loc[df['servername'] == filterserver]
                 df = df.loc[((df['timeid'] > startcompare) & (df['timeid'] <= endcompare))]
                 fig = px.line(df, x="timeid", y="percentageiusage", color="mounted", title="Disk Inodes Usage", hover_data=["inodestotal", "used", "inodesfree"])
