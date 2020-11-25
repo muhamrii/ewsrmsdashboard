@@ -114,7 +114,7 @@ def requesthistory(request, servername):
             startdate = form.cleaned_data.get("startdate")
             enddate = form.cleaned_data.get("enddate")
             startcompare = startdate.strftime("%Y-%m-%d %X")
-            endcompare = startdate.strftime("%Y-%m-%d %X")
+            endcompare = enddate.strftime("%Y-%m-%d %X")
             def plotram(filterserver):
                 db_connection = sql.connect(host='localhost', database='db_ewsrmsdash', user='root', password='Last_12321', auth_plugin='mysql_native_password')
                 df = pd.read_sql("select timeid, servername, memload,cpuload, sshstatus from tb_cpu_ram_load;", con=db_connection)
