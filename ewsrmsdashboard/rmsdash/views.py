@@ -120,6 +120,7 @@ def requesthistory(request, servername):
                 df = pd.read_sql("select timeid, servername, memload,cpuload, sshstatus from tb_cpu_ram_load;", con=db_connection)
                 df = df.loc[df['servername'] == filterserver]
                 df = df.loc[((df['timeid'] > startcompare) & (df['timeid'] <= endcompare))]
+                print(df)
                 fig = px.line(df, x="timeid", y="memload")
                 plot_div = plot(fig, output_type='div', include_plotlyjs=False)
             
