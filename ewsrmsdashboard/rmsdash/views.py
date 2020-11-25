@@ -153,8 +153,8 @@ def requesthistory(request, servername):
             
             listdataserverupdate = TbCpuRamLoad.objects.all().filter(servername__exact=get_servername).order_by('-timeid')[:1]
             lastupdate = TbDiskCapacity.objects.order_by('-timeid').values('timeid').filter(servername__exact=get_servername).distinct()[:1]
-            listdiskcapacity = TbDiskCapacity.objects.filter(current_issue__isnull=True, timeid__range=(startdate, enddate)).filter(servername__exact=get_servername).values('filesystem,mounted').annotate(max_diskusage=Max('percentageusage')).annotate(min_diskusage=Min('percentageusage')).annotate(avg_diskusage=Avg('percentageusage'))
-            listinodesusage = TbInodesUsage.objects.filter(current_issue__isnull=True, timeid__range=(startdate, enddate)).filter(servername__exact=get_servername).values('filesystem,mounted').annotate(max_diskusage=Max('percentageiusage')).annotate(min_diskusage=Min('percentageiusage')).annotate(avg_diskusage=Avg('percentageiusage'))
+            listdiskcapacity = TbDiskCapacity.objects.filter(current_issue__isnull=True, timeid__range=(startdate, enddate)).filter(servername__exact=get_servername).values('mounted').annotate(max_diskusage=Max('percentageusage')).annotate(min_diskusage=Min('percentageusage')).annotate(avg_diskusage=Avg('percentageusage'))
+            listinodesusage = TbInodesUsage.objects.filter(current_issue__isnull=True, timeid__range=(startdate, enddate)).filter(servername__exact=get_servername).values('mounted').annotate(max_diskusage=Max('percentageiusage')).annotate(min_diskusage=Min('percentageiusage')).annotate(avg_diskusage=Avg('percentageiusage'))
             context1={
                 'startdate' : startdate,
                 'enddate' : enddate,
