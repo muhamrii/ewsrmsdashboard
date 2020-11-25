@@ -160,8 +160,8 @@ def requesthistory(request, servername):
                 'listdataserverupdate' : listdataserverupdate,
                 'plotram' : plotram(get_servername),
                 'plotcpu' : plotcpu(get_servername),
-                'plotdisk' : plotdisk(servername),
-                'plotinodes' : plotinodes(servername),
+                'plotdisk' : plotdisk(get_servername),
+                'plotinodes' : plotinodes(get_servername),
             }
             html_template1 = loader.get_template( 'historical-detail.html' )
             return HttpResponse(html_template1.render(context1, request))
