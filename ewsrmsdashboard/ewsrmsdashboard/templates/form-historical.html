@@ -73,20 +73,19 @@
                                         <tr>
                                             <td class="font-weight-bold border-0">Start Date</td>
                                             <td class="font-weight-bold border-0">
-                                                <input id="datepicker" name='startdate'>
+                                                {{ form.startdate }}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="font-weight-bold border-0">End Date</td>
                                             <td class="font-weight-bold border-0">
-                                                <input id="datepicker" name='enddate'>
-                                                <input type="hidden" id="servername" name="servername" value="{{ servername }}">
+                                                {{ form.enddate }}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="font-weight-bold border-0"></td>
                                             <td class="font-weight-bold border-0">
-                                                <button type="submit" name="search" class="btn btn-primary">Open Historical Dashboard</button>
+                                                <button type="submit" name="submit" class="btn btn-primary">Open Historical Dashboard</button>
                                             </td>
                                         </tr>
                                     </form>
@@ -108,18 +107,11 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-    <script>
-        $(function () {
-        $("#startdate").datetimepicker({
-            format: 'd/m/Y H:i',
-        });
-        });
-    </script>
-    <script>
-        $(function () {
-        $("#enddate").datetimepicker({
-            format: 'd/m/Y H:i',
-        });
-        });
-    </script>
+<script>
+    $(function () {
+      $("#id_date").datepicker({
+        format:'dd/mm/yyyy',
+      });
+    });
+  </script>
 {% endblock javascripts %}
