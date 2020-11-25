@@ -113,10 +113,12 @@ def requesthistory(request, servername):
         if form.is_valid():
             startdate = form.cleaned_data.get("startdate")
             enddate = form.cleaned_data.get("enddate")
+            listdataserverupdate = TbCpuRamLoad.objects.all().filter(servername__exact=get_servername).order_by('-timeid')[:1]
             context1={
                 'startdate' : startdate,
                 'enddate' : enddate,
-                'servername' : get_servername
+                'servername' : get_servername,
+                'listdataserverupdate' : listdataserverupdate,
             }
             html_template1 = loader.get_template( 'historical-detail.html' )
             return HttpResponse(html_template1.render(context1, request))
