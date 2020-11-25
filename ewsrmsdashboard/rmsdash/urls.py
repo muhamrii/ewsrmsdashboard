@@ -4,7 +4,8 @@ from rmsdash.dash_apps.finished_apps import simpleexample
 urlpatterns = [
 
     # The home page
-    path('', views.realtime, name='home'),
+    path('', views.index, name='home'),
+    path('realtimedashboard', views.realtime, name='realtime'),
     path('realtime-detail/<str:servername>/', views.realtimedetail, name='realtimedetail'),
     path('request-history/<str:servername>/', views.requesthistory, name='requesthistory'),
 ]
