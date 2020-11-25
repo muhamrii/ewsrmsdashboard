@@ -127,7 +127,7 @@ def requesthistory(request, servername):
                 'enddate' : enddate,
                 'servername' : get_servername,
                 'listdataserverupdate' : listdataserverupdate,
-                'plotram' : plotram(getservername),
+                'plotram' : plotram(get_servername),
             }
             html_template1 = loader.get_template( 'historical-detail.html' )
             return HttpResponse(html_template1.render(context1, request))
