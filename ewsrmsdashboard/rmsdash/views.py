@@ -110,7 +110,6 @@ def requesthistory(request, servername):
     form = RequestHistoricalForm(request.POST or None)
     get_servername =  servername
     if request.method == "POST":
-        form = ReportForm(request.POST)
         if form.is_valid():
             startdate = form.cleaned_data.get("startdate")
             enddate = form.cleaned_data.get("enddate")
