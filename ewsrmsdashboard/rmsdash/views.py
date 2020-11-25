@@ -14,8 +14,15 @@ from rmsdash.forms import RequestHistoricalForm
 @login_required(login_url="/login/")
 def index(request):
     listdataserverupdate = TbServer.objects.all()
+    registeredserver = TbServer.objects.all().distinct().count()
+    lastupdate = TbCpuRamLoad.objects.order_by('-timeid').values('timeid').distinct()[:1]
+    hitungactive = TbCpuRamLoad.objects.order_by().values('servername').filter(timeid__exact=lastupdate, sshstatus__exact="OK").distinct().count()
+    hitungunmonitored = registeredserver - hitungactive
     context={
         'listdataserverupdate' : listdataserverupdate,
+        'registeredserver' : registeredserver,
+        'hitungactive' : hitungactive,
+        'hitungunmonitored' : hitungunmonitored,
     }
     html_template = loader.get_template( 'realtime.html' )
     return HttpResponse(html_template.render(context, request))
@@ -25,8 +32,15 @@ def index(request):
 def realtime(request):
     #listdataserverupdate = TbServer.objects.raw('''SELECT * from tb_server, tb_cpu_ram_load where tb_server.servername = tb_cpu_ram_load.servername and timeid=(select timeid from tb_cpu_ram_load order by timeid desc limit 1)''')
     listdataserverupdate = TbServer.objects.all()
+    registeredserver = TbServer.objects.all().distinct().count()
+    lastupdate = TbCpuRamLoad.objects.order_by('-timeid').values('timeid').distinct()[:1]
+    hitungactive = TbCpuRamLoad.objects.order_by().values('servername').filter(timeid__exact=lastupdate, sshstatus__exact="OK").distinct().count()
+    hitungunmonitored = registeredserver - hitungactive
     context={
         'listdataserverupdate' : listdataserverupdate,
+        'registeredserver' : registeredserver,
+        'hitungactive' : hitungactive,
+        'hitungunmonitored' : hitungunmonitored,
     }
     html_template = loader.get_template( 'realtime.html' )
     return HttpResponse(html_template.render(context, request))
