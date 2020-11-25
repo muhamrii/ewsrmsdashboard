@@ -99,6 +99,14 @@
             </div>
         </div>
 
+        <script>
+            $(function () {
+              $("#id_date").datepicker({
+                format:'dd/mm/yyyy',
+              });
+            });
+          </script>
+          
         {% include 'includes/footer.html' %}
 
     </main>
@@ -107,11 +115,5 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-<script>
-    $(function () {
-      $("#id_date").datepicker({
-        format:'dd/mm/yyyy',
-      });
-    });
-  </script>
+
 {% endblock javascripts %}
