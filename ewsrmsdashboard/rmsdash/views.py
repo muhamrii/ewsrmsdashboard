@@ -17,12 +17,15 @@ def index(request):
     registeredserver = TbServer.objects.all().distinct().count()
     lastupdate = TbCpuRamLoad.objects.order_by('-timeid').values('timeid').distinct()[:1]
     hitungactive = TbCpuRamLoad.objects.order_by().values('servername').filter(timeid__exact=lastupdate, sshstatus__exact="OK").distinct().count()
+    serveractive = TbCpuRamLoad.objects.order_by().values('servername').filter(timeid__exact=lastupdate, sshstatus__exact="OK").distinct()
     hitungunmonitored = registeredserver - hitungactive
     context={
         'listdataserverupdate' : listdataserverupdate,
         'registeredserver' : registeredserver,
         'hitungactive' : hitungactive,
         'hitungunmonitored' : hitungunmonitored,
+        'lastupdate' : lastupdate,
+        'serveractive' : serveractive,
     }
     html_template = loader.get_template( 'realtime.html' )
     return HttpResponse(html_template.render(context, request))

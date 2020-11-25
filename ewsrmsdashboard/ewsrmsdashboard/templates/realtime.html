@@ -97,6 +97,8 @@
                     <th class="border-0">IP Address</th>
                     <th class="border-0">User Access</th>
                     <th class="border-0">Port SSH</th>
+                    <th class="border-0">Last Update</th>
+                    <th class="border-0">Connection Status</th>
                     <th class="border-0">Action</th>
                     </tr>
                 </thead>
@@ -108,6 +110,18 @@
                             <td class="font-weight-bold">{{ dataserverupdate.ipaddress }}</td>
                             <td class="font-weight-bold">{{ dataserverupdate.username }}</td>
                             <td class="font-weight-bold">{{ dataserverupdate.port }}</td>
+                            <td class="font-weight-bold">{{ lastupdate }}</td>
+                            {% if dataserverupdate.servername in serveractive %}
+                                <td class="text-success border-0">
+                                    <span class="fas fa-angle-up"></span>                                   
+                                    <span class="font-weight-bold">OK</span>                                 
+                                </td> 
+                            {% else %}
+                                <td class="text-danger border-0">
+                                    <span class="fas fa-angle-down"></span>                                   
+                                    <span class="font-weight-bold">NOK</span>                                 
+                                </td>
+                            {% endif %}
                             <td>
                                 <a href="/realtime-detail/{{ dataserverupdate.servername }}/">
                                     <button class="btn btn-sm btn-info">Realtime Monitoring</button>
