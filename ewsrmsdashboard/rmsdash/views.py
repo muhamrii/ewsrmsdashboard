@@ -74,7 +74,7 @@ def realtimedetail(request, servername):
         db_connection = sql.connect(host='localhost', database='db_ewsrmsdash', user='root', password='Last_12321', auth_plugin='mysql_native_password')
         df = pd.read_sql("select timeid, servername, filesystem, size, used, avail, percentageusage, mounted from tb_disk_capacity where timeid > now() - INTERVAL 24 HOUR;", con=db_connection)
         df = df.loc[df['servername'] == filterserver]
-        fig = px.line(df, x="timeid", y="percentageusage", color="mounted", title="Disk Usage")
+        fig = px.line(df, x="timeid", y="percentageusage", color="mounted", title="Disk Usage", hover_data=["size", "used", "avail"])
         plot_div = plot(fig, output_type='div', include_plotlyjs=False)
         return plot_div
 
@@ -138,7 +138,7 @@ def requesthistory(request, servername):
                 df = pd.read_sql("select timeid, servername, filesystem, size, used, avail, percentageusage, mounted from tb_disk_capacity where timeid > now() - INTERVAL 24 HOUR;", con=db_connection)
                 df = df.loc[df['servername'] == filterserver]
                 df = df.loc[((df['timeid'] > startcompare) & (df['timeid'] <= endcompare))]
-                fig = px.line(df, x="timeid", y="percentageusage", color="mounted", title="Disk Usage")
+                fig = px.line(df, x="timeid", y="percentageusage", color="mounted", title="Disk Usage", hover_data=["size", "used", "avail"])
                 plot_div = plot(fig, output_type='div', include_plotlyjs=False)
                 return plot_div
             
@@ -147,14 +147,12 @@ def requesthistory(request, servername):
                 df = pd.read_sql("select timeid, servername, filesystem, inodestotal, used, inodesfree, percentageiusage, mounted from tb_inodes_usage where timeid > now() - INTERVAL 24 HOUR;", con=db_connection)
                 df = df.loc[df['servername'] == filterserver]
                 df = df.loc[((df['timeid'] > startcompare) & (df['timeid'] <= endcompare))]
-                fig = px.line(df, x="timeid", y="percentageiusage", color="mounted", title="Disk Inodes Usage")
+                fig = px.line(df, x="timeid", y="percentageiusage", color="mounted", title="Disk Inodes Usage", hover_data=["inodestotal", "used", "inodesfree"])
                 plot_div = plot(fig, output_type='div', include_plotlyjs=False)
                 return plot_div
             
             listdataserverupdate = TbCpuRamLoad.objects.all().filter(servername__exact=get_servername).order_by('-timeid')[:1]
             lastupdate = TbDiskCapacity.objects.order_by('-timeid').values('timeid').filter(servername__exact=get_servername).distinct()[:1]
-            listdiskcapacity = TbDiskCapacity.objects.filter(servername__exact=get_servername, timeid__range=(startdate, enddate)).values('mounted').aggregate(max_diskusage=Max('percentageusage'), min_diskusage=Min('percentageusage'), avg_diskusage=Avg('percentageusage'))
-            listinodesusage = TbInodesUsage.objects.filter(servername__exact=get_servername, timeid__range=(startdate, enddate)).values('mounted').aggregate(max_diskusage=Max('percentageiusage'), min_diskusage=Min('percentageiusage'), avg_diskusage=Avg('percentageiusage'))
             context1={
                 'startdate' : startdate,
                 'enddate' : enddate,
@@ -164,8 +162,6 @@ def requesthistory(request, servername):
                 'plotcpu' : plotcpu(get_servername),
                 'plotdisk' : plotdisk(servername),
                 'plotinodes' : plotinodes(servername),
-                'listdiskcapacity' : listdiskcapacity,
-                'listinodesusage' : listinodesusage,
             }
             html_template1 = loader.get_template( 'historical-detail.html' )
             return HttpResponse(html_template1.render(context1, request))

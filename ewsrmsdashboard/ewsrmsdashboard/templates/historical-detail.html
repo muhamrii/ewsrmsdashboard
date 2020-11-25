@@ -106,6 +106,36 @@
         </div>
 
         <div class="row">
+            <div class="col-sm">
+                <div class="card border-light shadow-sm">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            Disk Capacity Usage Graph
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {{ plotdisk | safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm">
+                <div class="card border-light shadow-sm">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            Inodes Usage Graph
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {{ plotinodes | safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="row">
             <div class="col-6 col-sm">
                 <div class="card border-light shadow-sm">
                     <div class="card-header" id="headingOne">
@@ -144,9 +174,9 @@
             <div class="col-6 col-sm card" style="width:600;height:500">
                 {{ plotdisk | safe }}
             </div>
-        </div>
+        </div> -->
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-6 col-sm">
                 <div class="card border-light shadow-sm">
                     <div class="card-header" id="headingOne">
@@ -185,7 +215,7 @@
             <div class="col-6 col-sm card" style="width:600;height:500">
                 {{ plotinodes | safe }}
             </div>
-        </div>
+        </div> -->
 
         {% include 'includes/footer.html' %}
 
