@@ -110,8 +110,8 @@
                             <td class="font-weight-bold">{{ dataserverupdate.ipaddress }}</td>
                             <td class="font-weight-bold">{{ dataserverupdate.username }}</td>
                             <td class="font-weight-bold">{{ dataserverupdate.port }}</td>
-                            <td class="font-weight-bold">{{ lastupdate.timeid }}</td>
-                            {% if dataserverupdate.servername in serveractive.servername %}
+                            <td class="font-weight-bold">{{ dataserverupdate.timeid }}</td>
+                            {% if dataserverupdate.sshstatus == "OK" %}
                                 <td class="text-success>
                                     <span class="fas fa-angle-up"></span>                                   
                                     <span class="font-weight-bold">OK</span>                                 
