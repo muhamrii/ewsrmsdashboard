@@ -138,7 +138,7 @@ def requesthistory(request, servername):
                 df = pd.read_sql("select timeid, servername, filesystem, size, used, avail, percentageusage, mounted from tb_disk_capacity;", con=db_connection)
                 df = df.loc[df['servername'] == filterserver]
                 df = df.loc[((df['timeid'] > startcompare) & (df['timeid'] <= endcompare))]
-                fig = px.line(df, x="timeid", y="percentageusage", color="mounted", title="Disk Usage", hover_data=["size", "used", "avail"])
+                fig = px.line(df, x="timeid", y="percentageusage", color="mounted", hover_data=["size", "used", "avail"])
                 plot_div = plot(fig, output_type='div', include_plotlyjs=False)
                 return plot_div
             
@@ -147,7 +147,7 @@ def requesthistory(request, servername):
                 df = pd.read_sql("select timeid, servername, filesystem, inodestotal, used, inodesfree, percentageiusage, mounted from tb_inodes_usage;", con=db_connection)
                 df = df.loc[df['servername'] == filterserver]
                 df = df.loc[((df['timeid'] > startcompare) & (df['timeid'] <= endcompare))]
-                fig = px.line(df, x="timeid", y="percentageiusage", color="mounted", title="Disk Inodes Usage", hover_data=["inodestotal", "used", "inodesfree"])
+                fig = px.line(df, x="timeid", y="percentageiusage", color="mounted", hover_data=["inodestotal", "used", "inodesfree"])
                 plot_div = plot(fig, output_type='div', include_plotlyjs=False)
                 return plot_div
             
