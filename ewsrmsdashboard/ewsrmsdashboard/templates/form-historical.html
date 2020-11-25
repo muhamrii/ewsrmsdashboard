@@ -108,7 +108,14 @@
 {% block javascripts %}
 <script>
     $(function () {
-      $("#id_date").datetimepicker({
+      $("#id_startdate").datetimepicker({
+        format: 'd/m/Y H:i',
+      });
+    });
+  </script>
+  <script>
+    $(function () {
+      $("#id_enddate").datetimepicker({
         format: 'd/m/Y H:i',
       });
     });
