@@ -126,6 +126,7 @@ def requesthistory(request, servername):
     context={
         'servername' : servername,
         'listdataserverupdate' : listdataserverupdate,
+        'form' : form,
     }
     html_template = loader.get_template( 'form-historical.html' )
     return HttpResponse(html_template.render(context, request))
