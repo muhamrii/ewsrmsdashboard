@@ -122,6 +122,7 @@ def requesthistory(request, servername):
                 df = df.loc[((df['timeid'] > startcompare) & (df['timeid'] <= endcompare))]
                 fig = px.line(df, x="timeid", y="memload")
                 plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+                return plot_div
             
             def plotcpu(filterserver):
                 db_connection = sql.connect(host='localhost', database='db_ewsrmsdash', user='root', password='Last_12321', auth_plugin='mysql_native_password')
@@ -130,6 +131,7 @@ def requesthistory(request, servername):
                 df = df.loc[((df['timeid'] > startcompare) & (df['timeid'] <= endcompare))]
                 fig = px.line(df, x="timeid", y="cpuload")
                 plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+                return plot_div
             
             listdataserverupdate = TbCpuRamLoad.objects.all().filter(servername__exact=get_servername).order_by('-timeid')[:1]
             context1={
