@@ -9,7 +9,7 @@ import plotly.express as px
 import pandas as pd
 import mysql.connector as sql
 from rmsdash.models import TbServer,TbCpuRamLoad,TbDiskCapacity,TbInodesUsage
-from rmsdash.form import RequestHistoricalForm
+from rmsdash.forms import RequestHistoricalForm
 
 @login_required(login_url="/login/")
 def index(request):
