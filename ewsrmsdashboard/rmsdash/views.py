@@ -117,7 +117,7 @@ def requesthistory(request, servername):
                 db_connection = sql.connect(host='localhost', database='db_ewsrmsdash', user='root', password='Last_12321', auth_plugin='mysql_native_password')
                 df = pd.read_sql("select timeid, servername, memload,cpuload, sshstatus from tb_cpu_ram_load;", con=db_connection)
                 df = df.loc[df['servername'] == filterserver]
-                df = df.tz_aware.tz_localize(None)
+                df = df.tz_localize(None)
                 df = (df['timeid'] > startcompare) & (df['timeid'] <= endcompare)
                 fig = px.line(df, x="timeid", y="memload")
                 plot_div = plot(fig, output_type='div', include_plotlyjs=False)
