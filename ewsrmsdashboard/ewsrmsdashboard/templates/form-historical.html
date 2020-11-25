@@ -111,6 +111,7 @@
       $("#id_startdate").datetimepicker({
         format: 'd/m/Y H:i',
       });
+      $("#id_startdate").attr("autocomplete", "off"); 
     });
   </script>
   <script>
@@ -118,6 +119,7 @@
       $("#id_enddate").datetimepicker({
         format: 'd/m/Y H:i',
       });
+      $("#id_enddate").attr("autocomplete", "off"); 
     });
   </script>
 {% endblock javascripts %}
