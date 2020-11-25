@@ -30,7 +30,7 @@ def index(request):
 
 @login_required(login_url="/login/")
 def realtime(request):
-    listdataserverupdate = TbServer.objects.raw('''SELECT tb_server.servername,ipaddress,username,password,port,sshstatus,timeid from tb_server, tb_cpu_ram_load where tb_server.servername = tb_cpu_ram_load.servername and timeid in (SELECT MAX(timeid) from tb_cpu_ram_load GROUP BY tb_cpu_ram_load.servername)''')
+    listdataserverupdate = TbServer.objects.raw('''SELECT * from tb_server, tb_cpu_ram_load where tb_server.servername = tb_cpu_ram_load.servername and timeid in (SELECT MAX(timeid) from tb_cpu_ram_load GROUP BY tb_cpu_ram_load.servername)''')
     #listdataserverupdate = TbServer.objects.all()
     registeredserver = TbServer.objects.all().distinct().count()
     lastupdate = TbCpuRamLoad.objects.order_by('-timeid').values('timeid').distinct()[:1]
