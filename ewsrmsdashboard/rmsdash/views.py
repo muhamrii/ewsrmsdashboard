@@ -132,8 +132,29 @@ def requesthistory(request, servername):
                 fig = px.line(df, x="timeid", y="cpuload")
                 plot_div = plot(fig, output_type='div', include_plotlyjs=False)
                 return plot_div
+
+            def plotdisk(filterserver):
+                db_connection = sql.connect(host='localhost', database='db_ewsrmsdash', user='root', password='Last_12321', auth_plugin='mysql_native_password')
+                df = pd.read_sql("select timeid, servername, filesystem, size, used, avail, percentageusage, mounted from tb_disk_capacity where timeid > now() - INTERVAL 24 HOUR;", con=db_connection)
+                df = df.loc[df['servername'] == filterserver]
+                df = df.loc[((df['timeid'] > startcompare) & (df['timeid'] <= endcompare))]
+                fig = px.line(df, x="timeid", y="percentageusage", color="mounted", title="Disk Usage")
+                plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+                return plot_div
+            
+            def plotinodes(filterserver):
+                db_connection = sql.connect(host='localhost', database='db_ewsrmsdash', user='root', password='Last_12321', auth_plugin='mysql_native_password')
+                df = pd.read_sql("select timeid, servername, filesystem, inodestotal, used, inodesfree, percentageiusage, mounted from tb_inodes_usage where timeid > now() - INTERVAL 24 HOUR;", con=db_connection)
+                df = df.loc[df['servername'] == filterserver]
+                df = df.loc[((df['timeid'] > startcompare) & (df['timeid'] <= endcompare))]
+                fig = px.line(df, x="timeid", y="percentageiusage", color="mounted", title="Disk Inodes Usage")
+                plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+                return plot_div
             
             listdataserverupdate = TbCpuRamLoad.objects.all().filter(servername__exact=get_servername).order_by('-timeid')[:1]
+            lastupdate = TbDiskCapacity.objects.order_by('-timeid').values('timeid').filter(servername__exact=get_servername).distinct()[:1]
+            listdiskcapacity = TbDiskCapacity.objects.filter(current_issue__isnull=True, timeid__range=(startdate, enddate)).filter(servername__exact=get_servername).values('filesystem,mounted').annotate(max_diskusage=Max('percentageusage')).annotate(min_diskusage=Min('percentageusage')).annotate(avg_diskusage=Avg('percentageusage'))
+            listinodesusage = TbInodesUsage.objects.filter(current_issue__isnull=True, timeid__range=(startdate, enddate)).filter(servername__exact=get_servername).values('filesystem,mounted').annotate(max_diskusage=Max('percentageiusage')).annotate(min_diskusage=Min('percentageiusage')).annotate(avg_diskusage=Avg('percentageiusage'))
             context1={
                 'startdate' : startdate,
                 'enddate' : enddate,
@@ -141,6 +162,10 @@ def requesthistory(request, servername):
                 'listdataserverupdate' : listdataserverupdate,
                 'plotram' : plotram(get_servername),
                 'plotcpu' : plotcpu(get_servername),
+                'plotdisk' : plotdisk(servername),
+                'plotinodes' : plotinodes(servername),
+                'listdiskcapacity' : listdiskcapacity,
+                'listinodesusage' : listinodesusage,
             }
             html_template1 = loader.get_template( 'historical-detail.html' )
             return HttpResponse(html_template1.render(context1, request))

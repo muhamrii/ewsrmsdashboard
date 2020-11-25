@@ -114,15 +114,14 @@
                         </h5>
                     </div>
                     <div class="card-body">
-                        <!-- <div class="table-responsive">
+                        <div class="table-responsive">
                             <table class="table table-centered table-nowrap mb-0 rounded">
                             <thead class="thead-light">
                                 <tr>
                                 <th class="border-0">filesystem</th>
-                                <th class="border-0">size</th>
-                                <th class="border-0">used</th>
-                                <th class="border-0">avail</th>
-                                <th class="border-0">(%)</th>
+                                <th class="border-0">max(%)</th>
+                                <th class="border-0">min(%)</th>
+                                <th class="border-0">avg(%)</th>
                                 <th class="border-0">mounted</th>
                                 </tr>
                             </thead>
@@ -130,22 +129,21 @@
                                 {% for diskcapacity in listdiskcapacity %}
                                     <tr>
                                         <td class="font-weight-bold">{{ diskcapacity.filesystem }}</td>
-                                        <td class="font-weight-bold">{{ diskcapacity.size }}</td>
-                                        <td class="font-weight-bold">{{ diskcapacity.used }}</td>
-                                        <td class="font-weight-bold">{{ diskcapacity.avail }}</td>
-                                        <td class="font-weight-bold">{{ diskcapacity.percentageusage }}</td>
+                                        <td class="font-weight-bold">{{ diskcapacity.max_diskusage }}</td>
+                                        <td class="font-weight-bold">{{ diskcapacity.min_diskusage }}</td>
+                                        <td class="font-weight-bold">{{ diskcapacity.avg_diskusage }}</td>
                                         <td class="font-weight-bold">{{ diskcapacity.mounted }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
                             </table>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-6 col-sm card" style="width:600;height:500">
+            <div class="col-6 col-sm card" style="width:600;height:500">
                 {{ plotdisk | safe }}
-            </div> -->
+            </div>
         </div>
 
         <div class="row">
@@ -157,15 +155,14 @@
                         </h5>
                     </div>
                     <div class="card-body">
-                    <!-- <div class="table-responsive">
+                    <div class="table-responsive">
                         <table class="table table-centered table-nowrap mb-0 rounded">
                         <thead class="thead-light">
                             <tr>
                             <th class="border-0">filesystem</th>
-                            <th class="border-0">total</th>
-                            <th class="border-0">used</th>
-                            <th class="border-0">free</th>
-                            <th class="border-0">(%)</th>
+                            <th class="border-0">max(%)</th>
+                            <th class="border-0">min(%)</th>
+                            <th class="border-0">avg(%)</th>
                             <th class="border-0">mounted</th>
                             </tr>
                         </thead>
@@ -173,22 +170,21 @@
                             {% for inodesusage in listinodesusage %}
                                 <tr>
                                     <td class="font-weight-bold">{{ inodesusage.filesystem }}</td>
-                                    <td class="font-weight-bold">{{ inodesusage.inodestotal }}</td>
-                                    <td class="font-weight-bold">{{ inodesusage.used }}</td>
-                                    <td class="font-weight-bold">{{ inodesusage.inodesfree }}</td>
-                                    <td class="font-weight-bold">{{ inodesusage.percentageiusage }}</td>
+                                    <td class="font-weight-bold">{{ inodesusage.max_diskusage }}</td>
+                                    <td class="font-weight-bold">{{ inodesusage.min_diskusage }}</td>
+                                    <td class="font-weight-bold">{{ inodesusage.avg_diskusage }}</td>
                                     <td class="font-weight-bold">{{ inodesusage.mounted }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                         </table>
-                    </div> -->
+                    </div>
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-6 col-sm card" style="width:600;height:500">
+            <div class="col-6 col-sm card" style="width:600;height:500">
                 {{ plotinodes | safe }}
-            </div> -->
+            </div>
         </div>
 
         {% include 'includes/footer.html' %}
