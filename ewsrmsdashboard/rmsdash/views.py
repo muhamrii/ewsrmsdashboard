@@ -113,11 +113,13 @@ def requesthistory(request, servername):
         if form.is_valid():
             startdate = form.cleaned_data.get("startdate")
             enddate = form.cleaned_data.get("enddate")
+            startcompare = startdate.strftime("%Y-%m-%d %X")
+            endcompare = startdate.strftime("%Y-%m-%d %X")
             def plotram(filterserver):
                 db_connection = sql.connect(host='localhost', database='db_ewsrmsdash', user='root', password='Last_12321', auth_plugin='mysql_native_password')
                 df = pd.read_sql("select timeid, servername, memload,cpuload, sshstatus from tb_cpu_ram_load;", con=db_connection)
                 df = df.loc[df['servername'] == filterserver]
-                df = (df['timeid'].tz_localize('US/Eastern') > startdate) & (df['timeid'].tz_localize('US/Eastern') <= enddate)
+                df = (df['timeid'] > startcompare) & (df['timeid'] <= endcompare)
                 fig = px.line(df, x="timeid", y="memload")
                 plot_div = plot(fig, output_type='div', include_plotlyjs=False)
             
